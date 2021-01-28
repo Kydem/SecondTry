@@ -15,10 +15,10 @@ from Settings_Module import MySettings
 #---------------------------
 #   [Required] Script Information
 #---------------------------
-ScriptName = "Template Script"
-Website = "https://www.streamlabs.com"
-Description = "!test will post a message in chat"
-Creator = "AnkhHeart"
+ScriptName = "Bourgeoisie Detector"
+Website = "https://www.twitch.tv/germansausagesarezewurst"
+Description = "Find those rich scum!"
+Creator = "GermanSausages"
 Version = "1.0.0.0"
 
 #---------------------------
@@ -42,7 +42,6 @@ def Init():
     #   Load settings
     SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings = MySettings(SettingsFile)
-    ScriptSettings.Response = "Overwritten pong! ^_^"
     return
 
 #---------------------------
@@ -51,13 +50,6 @@ def Init():
 def Execute(data):
     if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Command and Parent.IsOnUserCooldown(ScriptName,ScriptSettings.Command,data.User):
         Parent.SendStreamMessage("Time Remaining " + str(Parent.GetUserCooldownDuration(ScriptName,ScriptSettings.Command,data.User)))
-
-    #   Check if the propper command is used, the command is not on cooldown and the user has permission to use the command
-    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Command and not Parent.IsOnUserCooldown(ScriptName,ScriptSettings.Command,data.User) and Parent.HasPermission(data.User,ScriptSettings.Permission,ScriptSettings.Info):
-        Parent.BroadcastWsEvent("EVENT_MINE","{'show':false}")
-        Parent.SendStreamMessage(ScriptSettings.Response)    # Send your message to chat
-        Parent.AddUserCooldown(ScriptName,ScriptSettings.Command,data.User,ScriptSettings.Cooldown)  # Put the command on cooldown
-
     
     return
 
@@ -71,10 +63,6 @@ def Tick():
 #   [Optional] Parse method (Allows you to create your own custom $parameters) 
 #---------------------------
 def Parse(parseString, userid, username, targetid, targetname, message):
-    
-    if "$myparameter" in parseString:
-        return parseString.replace("$myparameter","I am a cat!")
-    
     return parseString
 
 #---------------------------
