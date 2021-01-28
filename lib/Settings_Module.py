@@ -8,11 +8,10 @@ class MySettings(object):
             with codecs.open(settingsfile, encoding="utf-8-sig", mode="r") as f:
                 self.__dict__ = json.load(f, encoding="utf-8")
         except:
-            self.Command = "!ping"
-            self.Response = "pong! ^_^"
-            self.Cooldown = 10
-            self.Permission = "everyone"
-            self.Info = ""
+            self.ScumMessage = "Prepare to be eaten, bourgeoisie SCUM!"
+            self.PoorBoyMessage = "I hope you brought a fork, Gutter Rat!"
+            self.Odds = 10
+            self.Command = "!EatTheRich"
 
     def Reload(self, jsondata):
         self.__dict__ = json.loads(jsondata, encoding="utf-8")
