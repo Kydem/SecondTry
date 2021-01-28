@@ -11,7 +11,7 @@ clr.AddReference("IronPython.SQLite.dll")
 clr.AddReference("IronPython.Modules.dll")
 
 #   Import your Settings class
-from Settings_Module import MySettings
+from SecondtrySettings_Module import SecondtrySettings
 #---------------------------
 #   [Required] Script Information
 #---------------------------
@@ -24,8 +24,8 @@ Version = "1.0.0.0"
 #---------------------------
 #   Define Global Variables
 #---------------------------
-SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
-ScriptSettings = MySettings()
+SecondtrySettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
+ScriptSettings = SecondtrySettings()
 
 #---------------------------
 #   [Required] Initialize Data (Only called on load)
@@ -34,7 +34,7 @@ def Init():
     Log("Init Called")
     EnsureLocalDirectoryExists("settings")
 
-    ScriptSettings = MySettings(SettingsFile)
+    ScriptSettings = SecondtrySettings(SecondtrySettingsFile)
     Log("Init Ended")
     return
 
@@ -75,7 +75,7 @@ def Parse(parseString, userid, username, targetid, targetname, message):
 def ReloadSettings(jsonData):
     # Execute json reloading here
     ScriptSettings.__dict__ = json.loads(jsonData)
-    ScriptSettings.Save(SettingsFile)
+    ScriptSettings.Save(SecondtrySettingsFile)
     return
 
 #---------------------------
@@ -96,7 +96,7 @@ def EnsureLocalDirectoryExists(dirName):
         os.makedirs(direcotory) 
 
 def Log(message):
-    Parent.Log("Secondtry", message)
+    Parent.Log("Secondtry", str(message))
     return
 
 def SendMessage(message):

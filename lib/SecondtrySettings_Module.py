@@ -2,7 +2,7 @@ import os
 import codecs
 import json
 
-class MySettings(object):
+class SecondtrySettings(object):
     def __init__(self, settingsfile=None):
         try:
             with codecs.open(settingsfile, encoding="utf-8-sig", mode="r") as f:
