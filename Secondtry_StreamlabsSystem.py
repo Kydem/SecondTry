@@ -24,38 +24,37 @@ Version = "1.0.0.0"
 #---------------------------
 #   Define Global Variables
 #---------------------------
-global SettingsFile
-SettingsFile = ""
-global ScriptSettings
+SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
 ScriptSettings = MySettings()
 
 #---------------------------
 #   [Required] Initialize Data (Only called on load)
 #---------------------------
 def Init():
+    Log("Init Called")
+    EnsureLocalDirectoryExists("settings")
 
-    #   Create Settings Directory
-    directory = os.path.join(os.path.dirname(__file__), "Settings")
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
-    #   Load settings
-    SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
     ScriptSettings = MySettings(SettingsFile)
+    Log("Init Ended")
     return
 
 #---------------------------
 #   [Required] Execute Data / Process messages
 #---------------------------
 def Execute(data):
+    Log("Execute Called")
     if not data.IsChatMessage() or not data.IsFromTwitch():
         return
+    Log("Execute Is Chat Message")
+
+    Log(str(dir(ScriptSettings)))
 
     if ScriptSettings.Command.lower() in data.Message.lower():
-        Parent.SendStreamMessage("You said the magic word!")
+        SendMessage("You said the magic word!")
     else:
-        Parent.SendStreamMessage("You did not say it")
+        SendMessage("You did not say it")
     
+    Log("Execute Ended")
     return
 
 #---------------------------
@@ -90,6 +89,11 @@ def Unload():
 #---------------------------
 def ScriptToggled(state):
     return
+
+def EnsureLocalDirectoryExists(dirName):
+    directory = os.path.join(os.path.dirname(__file__), dirName)
+    if not os.path.exists(directory):
+        os.makedirs(direcotory) 
 
 def Log(message):
     Parent.Log("Secondtry", message)
