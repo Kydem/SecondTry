@@ -48,8 +48,13 @@ def Init():
 #   [Required] Execute Data / Process messages
 #---------------------------
 def Execute(data):
-    if data.IsChatMessage() and data.GetParam(0).lower() == ScriptSettings.Command and Parent.IsOnUserCooldown(ScriptName,ScriptSettings.Command,data.User):
-        Parent.SendStreamMessage("Time Remaining " + str(Parent.GetUserCooldownDuration(ScriptName,ScriptSettings.Command,data.User)))
+    if not data.IsChatMessage() or not data.IsFromTwitch():
+        return
+
+    if ScriptSettings.Command.lower() in data.Message.lower():
+        Parent.SendStreamMessage("You said the magic word!")
+    else:
+        Parent.SendStreamMessage("You did not say it")
     
     return
 
@@ -84,4 +89,12 @@ def Unload():
 #   [Optional] ScriptToggled (Notifies you when a user disables your script or enables it)
 #---------------------------
 def ScriptToggled(state):
+    return
+
+def Log(message):
+    Parent.Log("Secondtry", message)
+    return
+
+def SendMessage(message):
+    Parent.SendStreamMessage(message)
     return
