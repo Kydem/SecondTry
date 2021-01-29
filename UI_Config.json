@@ -14,14 +14,14 @@
     "tooltip": "response for poor people",
     "group": "Core"
   },
-  "Odds": {
+  "Currency": {
     "type": "slider",
-    "value": 10,
+    "value": 10000,
     "min": 0,
-    "max": 100,
-    "ticks": 5,
-    "label": "Odds to find scum",
-    "tooltip": "The odds of an individual being scum",
+    "max": 50000,
+    "ticks": 100,
+    "label": "Currency puller find scum",
+    "tooltip": "The amount of curreny an individual needs to be a scum",
     "group": "Core"
   },
   "Command": {

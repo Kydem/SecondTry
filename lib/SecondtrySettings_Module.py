@@ -10,7 +10,7 @@ class MySettings(object):
         except:
             self.ScumMessage = "Prepare to be eaten, bourgeoisie SCUM!"
             self.PoorBoyMessage = "I hope you brought a fork, Gutter Rat!"
-            self.Odds = 10
+            self.Currency = 6500
             self.Command = "!EatTheRich"
 
     def Reload(self, jsondata):

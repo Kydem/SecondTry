@@ -48,8 +48,8 @@ def Execute(data):
     Log("Execute Is Chat Message")
 
     if SecondtrySettings.Command.lower() in data.Message.lower():
-        number = Parent.GetRandom(0,100)
-        if number < SecondtrySettings.Odds:
+        number = Parent.GetPoints("germansausagesarezewurst")
+        if number < SecondtrySettings.Currency:
             SendMessage(SecondtrySettings.ScumMessage)
         else:
             SendMessage(SecondtrySettings.PoorBoyMessage)
