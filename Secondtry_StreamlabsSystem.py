@@ -11,7 +11,7 @@ clr.AddReference("IronPython.SQLite.dll")
 clr.AddReference("IronPython.Modules.dll")
 
 #   Import your Settings class
-from SecondtrySettings_Module import SecondtrySettings
+from SecondtrySettings_Module import MySettings
 #---------------------------
 #   [Required] Script Information
 #---------------------------
@@ -25,7 +25,7 @@ Version = "1.0.0.0"
 #   Define Global Variables
 #---------------------------
 SecondtrySettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
-ScriptSettings = SecondtrySettings()
+SecondtrySettings = MySettings()
 
 #---------------------------
 #   [Required] Initialize Data (Only called on load)
@@ -34,7 +34,7 @@ def Init():
     Log("Init Called")
     EnsureLocalDirectoryExists("settings")
 
-    ScriptSettings = SecondtrySettings(SecondtrySettingsFile)
+    SecondtrySettings = MySettings(SecondtrySettingsFile)
     Log("Init Ended")
     return
 
@@ -47,12 +47,12 @@ def Execute(data):
         return
     Log("Execute Is Chat Message")
 
-    Log(str(dir(ScriptSettings)))
-
-    if ScriptSettings.Command.lower() in data.Message.lower():
-        SendMessage("You said the magic word!")
-    else:
-        SendMessage("You did not say it")
+    if SecondtrySettings.Command.lower() in data.Message.lower():
+        number = Parent.GetRandom(0,100)
+        if number < SecondtrySettings.Odds:
+            SendMessage(SecondtrySettings.ScumMessage)
+        else:
+            SendMessage(SecondtrySettings.PoorBoyMessage)
     
     Log("Execute Ended")
     return
